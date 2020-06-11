@@ -15,10 +15,9 @@ An important goal of clean architecture is to provide developers with a way to o
 
 ## *What is Clean Architecture?*
 
-Clean architecture is a software design philosophy that separates the elements of a design into ring levels. The main rule of clean architecture is that code dependencies can only come from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
+- Clean architecture is a software design philosophy that separates the elements of a design into ring levels. The main rule of clean architecture is that code dependencies can only come from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
 
-
-Clean architecture was created by Robert C. Martin and promoted on his blog, Uncle Bob. Like other software design philosophies, clean architecture attempts to provide a methodology to use in coding in order to make it easier to develop quality code that performs better is easier to change, update and has fewer dependencies.
+- Clean architecture was created by Robert C. Martin and promoted on his blog, Uncle Bob. Like other software design philosophies, clean architecture attempts to provide a methodology to use in coding in order to make it easier to develop quality code that performs better is easier to change, update and has fewer dependencies.
 
 ## *Architecture*
 
