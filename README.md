@@ -1,4 +1,4 @@
-# *Flutter Redux Architecture*
+# *Flutter with Clean Architecture*
 
 Redux architecture in your Flutter apps. We will demonstrate the most important components by walking you through building a simple demo application and discuss the fundamentals of the architecture, highlight the best practices along the way.
 
