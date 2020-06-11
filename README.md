@@ -19,6 +19,10 @@ An important goal of clean architecture is to provide developers with a way to o
 
 - Clean architecture was created by Robert C. Martin and promoted on his blog, Uncle Bob. Like other software design philosophies, clean architecture attempts to provide a methodology to use in coding in order to make it easier to develop quality code that performs better is easier to change, update and has fewer dependencies.
 
+## *Key points*
+
+1.*Independence of frameworks*: Your project can never be dependent on an external framework, there must always be a layer that abstracts logic, thus making it possible to remove the framework without impacting the application.
+
 ## *Architecture*
 
 
