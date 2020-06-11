@@ -128,11 +128,32 @@ class UserState {
 }
 ```
 After defining the properties for each state we would like to use (for example, isLoading, loginError and user for UserState), and creating the store hierarchy, we’ll be able to create the global state for our application. Redux provides a simple way to achieve it:
-
 ```dart
  final store = Store<AppState>(
       appReducer,
       initialState: new AppState.initial(),
       middleware: [thunkMiddleware]
   );
+  ```
+After we defined the global store, we have to make sure the values for the states (eg: UserState) are available through the application and the components are able to connect to them. In Dart, we can use the StoreProvider class which makes the stored values available for the components:
+```dart
+@override
+  Widget build(BuildContext context) {
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+        title: 'Flutter Redux Example',
+        navigatorKey: Keys.navKey,
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        home: LoginScreen(title: 'Log in'),
+        routes: {
+          Routes.homeScreen: (context) {
+            return HomeScreen();
+          },
+        },
+      ),
+    );
+  }
   ```
