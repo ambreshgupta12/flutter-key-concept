@@ -50,7 +50,7 @@ In the first round, we’ll be creating the root object (AppState) which will en
 
 ```dart
 import 'package:meta/meta.dart';
-import 'package:flutter_redux_example/model/redux/state/user/user_state.dart';
+import 'package:reduxdemo/model/user_state.dart';
 
 @immutable
 class AppState {
@@ -82,4 +82,48 @@ class AppState {
       identical(this, other) ||
           other is AppState && userState == other.userState;
 }
+```
+We have to make sure to overwrite operator equals (operator ==) and the copyWith methods so Redux can detect which parts of the store changed and can generate the proper values for the next state.
+
+It’s also advised to specify the values for the initial state so we can be sure everything is properly set up when we launch our application.
+
+As the above example shows, we can combine states together, so we can separate them by features. Dividing them into smaller components makes them easier to understand and modify in the future:
+
 ```dart
+import 'package:meta/meta.dart';
+import 'package:reduxdemo/model/login/login_response.dart';
+
+@immutable
+class UserState {
+  final bool isLoading;
+  final bool loginError;
+  final LoginResponse loginResponse;
+
+   UserState({
+    @required this.isLoading,
+    @required this.loginError,
+    @required this.loginResponse,
+  });
+
+  factory UserState.initial() {
+    return new UserState(isLoading: false, loginError: false, loginResponse: null);
+  }
+
+  UserState copyWith({bool isLoading, bool loginError, LoginResponse loginResponse}) {
+    return new UserState(
+        isLoading: isLoading ?? this.isLoading, loginError: loginError ?? this.loginError, loginResponse: loginResponse ?? this.loginResponse);
+  }
+
+ @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserState &&
+          runtimeType == other.runtimeType &&
+          isLoading == other.isLoading &&
+          loginError == other.loginError &&
+          loginResponse == other.loginResponse;
+
+  @override
+  int get hashCode => isLoading.hashCode ^ loginResponse.hashCode;
+}
+```
