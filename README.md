@@ -256,4 +256,13 @@ And add thunks to the middleware list when configuring the global store:
 ```
 In the above example, login thunk is even responsible for navigating the user to the next screen in case of successful authentication. Let’s dig a bit deeper into how to combine navigation with Redux thunks
 
+## Handling navigation
+
+In Flutter we have two different approaches to handle navigation within our apps when using Redux:
+
+- observe the changes in the global store and perform navigation if a related boolean property change (for example, isLoading changes from true to false and there were no errors). However there are two disadvantages of using this approach: our code will be more complex and difficult to read as it generates a lot of conditional statements and also we’d have to add new actions to reset the state after the navigation transition is finished.
+
+- create a new action for navigation and call it directly from the thunk. This solution is much simpler and results in more readable code. That’s what we’re going to focus on.
+
+
   
