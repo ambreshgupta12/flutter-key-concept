@@ -264,5 +264,30 @@ In Flutter we have two different approaches to handle navigation within our apps
 
 - create a new action for navigation and call it directly from the thunk. This solution is much simpler and results in more readable code. That’s what we’re going to focus on.
 
+### Defining routes
+In Flutter, routes are sub-properties of the main application, they are listed with unique string keys and the connected screens. The keys should be used as constants and separated into a different class so we can change them more easily in the future.
+```dart
+class Routes {
+  static final homeScreen = "HOME_SCREEN";
+}
+
+@override
+  Widget build(BuildContext context) {
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+        ...
+        routes: {
+          Routes.homeScreen: (context) {
+            return HomeScreen();
+          },
+        },
+      ),
+    );
+  }
+  ```
+  
+
+
 
   
