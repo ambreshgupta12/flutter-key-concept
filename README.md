@@ -1,7 +1,6 @@
 # Flutter Redux Architecture 
 
 ## Adding Redux to your app
-
 # redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux)
 # flutter_redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/flutter_redux)
 # redux_thunk  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux_thunk)
