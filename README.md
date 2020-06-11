@@ -233,7 +233,27 @@ And add thunks to the middleware list when configuring the global store:
   );
   ```
  After the setup phase was completed, we can start implementing the thunk for handling user login.
- #### Implementing login thunk
+ ### Implementing login thunk
+ 
+ Thunks can be implemented similarly to actions, but instead of simply carrying the information, they handle additional app logic and even combine other actions:
+ ```dart
+ ThunkAction loginUser(String email, String password, BuildContext context) {
+  LoginRequest loginRequest = LoginRequest(email: email, password: password);
+  return (Store store) async {
+    new Future(() async {
+      store.dispatch(new StartLoadingAction());
+      AppClient().login(UrlConstant.LOGIN, loginRequest).then((loginResponse) {
+        store.dispatch(new LoginSuccessAction(loginResponse));
+        Navigator.of(context).pushReplacementNamed(
+            PageRouteConstants.home_screen,
+            arguments: loginResponse);
+      }, onError: (error) {
+        store.dispatch(new LoginFailedAction());
+      });
+    });
+  };
+}
+```
 
 
   
