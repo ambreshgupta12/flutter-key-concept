@@ -25,4 +25,8 @@ It uses a unidirectional data flow model to create an immutable data stream and 
 ## *Architecture*
 
 
-<img src="https://blog.novoda.com/content/images/2018/03/redux-architecture-overview.png" alt="Redux Architecture" />
+<img src="https://blog.novoda.com/content/images/2018/03/redux-architecture-overview-middleware.png" alt="Redux Architecture" />
+
+## Components
+
+
