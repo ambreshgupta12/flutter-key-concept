@@ -317,6 +317,30 @@ and from now on we’ll be able to do the navigation from the actions:
 Keys.navKey.currentState.pushNamed(Routes.homeScreen)
 ```
 
+## Components
+
+Usually, components create (or call) actions and observe the state changes. Components form all the visible elements on the UI and users are able to interact with them. They can be connected to our Redux store and present their current values in the UI. Flutter Redux provides a convenient way to do so by using the StoreConnector class:
+
+```dart
+@override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+        backgroundColor: MyTheme.Colors.white,
+        resizeToAvoidBottomPadding: true,
+        body: StoreConnector<AppState, _LoginViewModel>(
+          converter: (store) => _LoginViewModel.fromStore(store),
+          builder: (_, viewModel) => buildContent(viewModel, size),
+          onDidChange: (viewModel) {
+            if (viewModel.loginError) {
+              Helper.errorDialog(context, StringConstant.error_message,
+                  StringConstant.invalid_user_credentials);
+            }
+          },
+        ));
+  }
+  ```
+  
 
 
   
