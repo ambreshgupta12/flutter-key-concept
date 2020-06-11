@@ -254,6 +254,6 @@ And add thunks to the middleware list when configuring the global store:
   };
 }
 ```
-
+In the above example, login thunk is even responsible for navigating the user to the next screen in case of successful authentication. Let’s dig a bit deeper into how to combine navigation with Redux thunks
 
   
