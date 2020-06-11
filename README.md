@@ -214,6 +214,10 @@ In the following example we’ll discuss how to use one of the most popular midd
 ### Thunks
 Thunks help us to combine different actions or asynchronous methods (eg API calls, database updates) together and allow us to implement more complex logic.
 
-In our demo application, we’ll use a thunk to implement login related functions:
+-In our demo application, we’ll use a thunk to implement login related functions:
+-present the loading indicator when the user starts the login flow
+-call the login API and handle the result
+-navigate to the home page if the login was successful
+-present an error message for incorrect credentials
 
   
