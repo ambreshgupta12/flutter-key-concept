@@ -29,4 +29,7 @@ It uses a unidirectional data flow model to create an immutable data stream and 
 
 ## Components
 
+Usually, components are UI elements presenting data on the screen and initiating changes of the application’s state by responding to user interactions (for example, when the user presses the login button or types in its login credentials). Components cannot communicate directly with the global store. Instead, they need to encapsulate the information (in our previous example, a new username value) required for the changes and dispatch them using actions.
+## Actions
+
 
