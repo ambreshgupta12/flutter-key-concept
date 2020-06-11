@@ -341,6 +341,37 @@ Usually, components create (or call) actions and observe the state changes. Comp
   }
   ```
   
+  The three most important callback functions are:
+  
+  - converter: by specifying the converter method, we will be able to observe parts of the whole Redux store and filter the component related variables. It’s important to implement this method if we would like to avoid updating our component every time something changes in the store which can lead to performance issues. The best way to choose the properties that we’re interested in is to use a ViewModel class and separate the filtering logic:
+  
+  ```dart
+  class _LoginViewModel {
+  final bool isLoading;
+  final bool loginError;
+  final LoginResponse user;
+
+  final Function(String, String, BuildContext) login;
+
+  _LoginViewModel({
+    this.isLoading,
+    this.loginError,
+    this.user,
+    this.login,
+  });
+
+  static _LoginViewModel fromStore(Store<AppState> store) {
+    return _LoginViewModel(
+      isLoading: store.state.userState.isLoading,
+      loginError: store.state.userState.loginError,
+      user: store.state.userState.loginResponse,
+      login: (String username, String password, BuildContext context) {
+        store.dispatch(loginUser(username, password, context));
+      },
+    );
+  }
+}
+```
 
 
   
