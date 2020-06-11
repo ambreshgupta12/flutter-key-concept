@@ -1,11 +1,9 @@
 # Flutter Redux Architecture 
 
 ## Adding Redux to your app
-# redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux)# flutter_redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/flutter_redux)
+# redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux)
+# flutter_redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/flutter_redux)
 # redux_thunk  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux_thunk)
-
-
-
 
 Redux architecture in your Flutter apps. We will demonstrate the most important components by walking you through building a simple demo application and discuss the fundamentals of the architecture, highlight the best practices along the way.
 
