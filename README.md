@@ -127,3 +127,11 @@ class UserState {
   int get hashCode => isLoading.hashCode ^ loginResponse.hashCode;
 }
 ```
+After defining the properties for each state we would like to use (for example, isLoading, loginError and user for UserState), and creating the store hierarchy, we’ll be able to create the global state for our application. Redux provides a simple way to achieve it:
+
+```dart
+ final store = Store<AppState>(
+      appReducer,
+      initialState: new AppState.initial(),
+      middleware: [thunkMiddleware]
+  );```
