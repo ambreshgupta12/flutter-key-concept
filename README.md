@@ -288,6 +288,35 @@ class Routes {
   ```
 After defining the routes of the application, we’ll discuss how to use the Navigator class and to make the navigator accessible from the thunks.
 
+### Creating global navigator
+
+Navigation between the screens can be implemented using the Navigator class:
+
+```dart
+Navigator.push(
+  context,
+  MaterialPageRoute(builder:
+      (context) => SecondRoute()),
+);
+```
+Notice that the first parameter of the navigator is the current context, which means this method can only be used from widgets and not from actions. To solve this problem we have to store a global navigator instance and make it accessible across the whole app:
+
+```dart 
+class Keys {
+  static final navKey = new GlobalKey<NavigatorState>();
+}
+
+MaterialApp(
+  ...
+  navigatorKey: Keys.navKey,
+),
+```
+and from now on we’ll be able to do the navigation from the actions:
+
+```dart
+Keys.navKey.currentState.pushNamed(Routes.homeScreen)
+```
+
 
 
   
