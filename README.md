@@ -375,4 +375,8 @@ Usually, components create (or call) actions and observe the state changes. Comp
 - builder: the collected properties from the converter method are passed to the builder which composes the Widget component based on those values.
 - onDidChange: as soon as a property is changed in the store, the component will receive the new value in this method and will be able to change its state accordingly.
 
+## *Pros of Redux*
+
+
+
   
