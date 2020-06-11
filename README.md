@@ -286,7 +286,7 @@ class Routes {
     );
   }
   ```
-  
+After defining the routes of the application, we’ll discuss how to use the Navigator class and to make the navigator accessible from the thunks.
 
 
 
