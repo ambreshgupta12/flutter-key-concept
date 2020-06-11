@@ -1,16 +1,9 @@
-# flutterkey
+# Flutter Redux Architecture 
 
-A new Flutter application.
 
-## Getting Started
+# redux [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux)
 
-This project is a starting point for a Flutter application.
+Redux architecture in your Flutter apps. We will demonstrate the most important components by walking you through building a simple demo application and discuss the fundamentals of the architecture, highlight the best practices along the way.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## *Why Redux?*
+Redux is an architecture with a unidirectional data flow that makes it easy to develop applications that are easy to test and maintain.
