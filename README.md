@@ -134,4 +134,5 @@ After defining the properties for each state we would like to use (for example, 
       appReducer,
       initialState: new AppState.initial(),
       middleware: [thunkMiddleware]
-  );```
+  );
+  ```
