@@ -222,4 +222,15 @@ Thunks help us to combine different actions or asynchronous methods (eg API call
 - navigate to the home page if the login was successful
 - present an error message for incorrect credentials
 
+### Adding thunks to the project
+And add thunks to the middleware list when configuring the global store:
+
+```dart
+  final store = Store<AppState>(
+      appReducer,
+      initialState: new AppState.initial(),
+      middleware: [thunkMiddleware]
+  );
+  ```
+
   
