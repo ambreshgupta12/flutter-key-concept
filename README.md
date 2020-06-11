@@ -401,11 +401,8 @@ Usually, components create (or call) actions and observe the state changes. Comp
 ## *Refrences*
 
 1. https://brainsandbeards.com/blog/ultimate-redux-guide-for-flutter
-
 2. https://blog.novoda.com/introduction-to-redux-in-flutter
-
-3.https://medium.com/@mahmudahsan/how-to-use-redux-in-flutter-app-6299f69fadee
-
+3. https://medium.com/@mahmudahsan/how-to-use-redux-in-flutter-app-6299f69fadee
 4. https://blog.codemagic.io/flutter-tutorial-pros-and-cons-of-state-management-approaches/
 
   
