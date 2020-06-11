@@ -205,4 +205,15 @@ UserState _startLoading(UserState state, StartLoadingAction action) {
   return state.copyWith(isLoading: true, loginError: false);
 }
 ```
+Reducers may contain business logic and data transformation, eg filtering arrays and converting them to the right format.
+
+## Middleware
+If we’d like to implement more complex business logic or create separate layers for data handling we should use middleware. This way we are able to intercept actions and transform the information from their payload before it reaches the reducers.
+
+In the following example we’ll discuss how to use one of the most popular middleware, the thunks:
+### Thunks
+Thunks help us to combine different actions or asynchronous methods (eg API calls, database updates) together and allow us to implement more complex logic.
+
+In our demo application, we’ll use a thunk to implement login related functions:
+
   
