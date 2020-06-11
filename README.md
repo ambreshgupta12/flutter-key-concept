@@ -48,3 +48,38 @@ We would like to store the user data after a successful login and also we would 
 
 In the first round, we’ll be creating the root object (AppState) which will encapsulate all the related states for the features. In this example, we‘ll only cover the login part, but the store can easily be extended in the future to handle more features:
 
+```dart
+import 'package:meta/meta.dart';
+import 'package:flutter_redux_example/model/redux/state/user/user_state.dart';
+
+@immutable
+class AppState {
+  final UserState userState;
+
+  AppState({@required this.userState});
+
+  factory AppState.initial() {
+    return AppState(
+      userState: UserState.initial(),
+    );
+  }
+
+  AppState copyWith({
+    UserState userState,
+  }) {
+    return AppState(
+      userState: userState ?? this.userState,
+    );
+  }
+
+  @override
+  int get hashCode =>
+      //isLoading.hash Code ^
+  userState.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is AppState && userState == other.userState;
+}
+```dart
