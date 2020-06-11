@@ -232,5 +232,8 @@ And add thunks to the middleware list when configuring the global store:
       middleware: [thunkMiddleware]
   );
   ```
+ After the setup phase was completed, we can start implementing the thunk for handling user login.
+ #### Implementing login thunk
+
 
   
