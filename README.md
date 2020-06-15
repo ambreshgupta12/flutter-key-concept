@@ -21,7 +21,7 @@ An important goal of clean architecture is to provide developers with a way to o
 
 ## *Key points*
 
-Independence of frameworks: Your project can never be dependent on an external framework, there must always be a layer that abstracts logic, thus making it possible to remove the framework without impacting the application.
+1.**Independence of frameworks:** Your project can never be dependent on an external framework, there must always be a layer that abstracts logic, thus making it possible to remove the framework without impacting the application.
 
 ## *Architecture*
 
