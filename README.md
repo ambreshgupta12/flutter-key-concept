@@ -2,13 +2,6 @@
 
 The idea behind the clean architecture concept is to make the project scalable, easy to maintain and testable, creating separate layers and always depending on abstractions and not concrete classes.
 
-
-## *Adding Redux to your app*
-### redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux)
-### flutter_redux  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/flutter_redux)
-### redux_thunk  [![pub package](https://img.shields.io/pub/v/provider.svg)](https://pub.dev/packages/redux_thunk)
-
-
 ## *Why Clean Architecture?*
 
 An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism. Visually, the levels of clean architecture are organized into an unspecified number of rings. The outer levels of the rings are lower level mechanisms and the inner, higher levels contain policies and entities.
@@ -21,7 +14,14 @@ An important goal of clean architecture is to provide developers with a way to o
 
 ## *Key points*
 
-1.**Independence of frameworks:** Your project can never be dependent on an external framework, there must always be a layer that abstracts logic, thus making it possible to remove the framework without impacting the application.
+1. **Independence of frameworks:** Your project can never be dependent on an external framework, there must always be a layer that abstracts logic, thus making it possible to remove the framework without impacting the application.
+
+2. **Testable:** The business rule layer must be tested without dependence on UI, Bank or Web Service.
+3. **Independence of the UI:** Your system should not be aware of the existence of a UI, being possible to replace its graphical interface with a terminal without problems.
+
+4. **Independence from external agents:** Your business rules should not know about the existence of the world around you. In other words, she just needs to know what she needs to perform her responsibility.
+
+
 
 ## *Architecture*
 
