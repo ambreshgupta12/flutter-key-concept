@@ -141,7 +141,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 }
 ```
-##### *Login State
+##### *Login State*
 ```dart
 import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
 import 'package:meta/meta.dart';
@@ -197,6 +197,39 @@ class SignInState extends LoginState {
   SignInState({@required this.userData});
 }
 ```
+##### *Login Event*
+
+```dart
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:meta/meta.dart';
+
+abstract class LoginEvent {}
+
+class SignInEvent extends LoginEvent {
+  LoginRequest loginRequest;
+
+  SignInEvent({@required this.loginRequest});
+
+  List<Object> get props => [loginRequest];
+}
+
+class EmailChangedEvent extends LoginEvent {
+  final String email;
+
+  EmailChangedEvent({@required this.email});
+
+  List<Object> get props => [email];
+}
+
+class PasswordChangedEvent extends LoginEvent {
+  final String password;
+
+  PasswordChangedEvent({@required this.password});
+
+  List<Object> get props => [password];
+}
+```
+
 
 
 ## *Reducer*
