@@ -141,6 +141,62 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 }
 ```
+##### *Login State
+```dart
+import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
+import 'package:meta/meta.dart';
+
+class LoginState {
+  final bool isEmailValid;
+  final bool isPasswordValid;
+
+  const LoginState({
+    this.isEmailValid = true,
+    this.isPasswordValid = true,
+  });
+
+  factory LoginState.initial() {
+    return LoginState(
+      isEmailValid: true,
+      isPasswordValid: true,
+    );
+  }
+
+  LoginState copyWith({
+    bool isEmailValid,
+    bool isPasswordValid,
+  }) {
+    return LoginState(
+      isEmailValid: isEmailValid ?? this.isEmailValid,
+      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
+    );
+  }
+
+  @override
+  String toString() {
+    return '''LoginState {
+      isEmailValid: $isEmailValid,
+      isPasswordValid: $isPasswordValid,
+    }''';
+  }
+}
+
+class Empty extends LoginState {}
+
+class Loading extends LoginState {}
+
+class LoginFailure extends LoginState {
+  String message;
+
+  LoginFailure({this.message});
+}
+
+class SignInState extends LoginState {
+  final UserData userData;
+
+  SignInState({@required this.userData});
+}
+```
 
 
 ## *Reducer*
