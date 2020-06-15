@@ -494,6 +494,153 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 ```
+#### *Widget*
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:login_clean_architecture/core/constant/page_route_constants.dart';
+import 'package:login_clean_architecture/core/resources/styles.dart' as MyTheme;
+
+class CustomTextField extends StatelessWidget {
+  final String hint;
+  final TextEditingController textEditingController;
+  final TextInputType keyboardType;
+  final errorText;
+  final bool obscureText;
+  final TextCapitalization textCapitalization;
+  final FormFieldValidator<String> validator;
+  final List<TextInputFormatter> inputFormatters;
+  final int maxLength;
+  final int maxLines;
+  final TextStyle hintStyle;
+  final Function tap;
+  final bool isFocused;
+  final String counterText;
+  final bool autoValidate;
+  final textAlignment;
+  final FocusNode currentFocusNode;
+  final FocusNode nextFocusNode;
+  final TextInputAction textInputAction;
+  final ValueChanged<String> onFieldSubmitted;
+  final ValueChanged<String> onChanged;
+  final String prefixText;
+
+  CustomTextField({
+    key,
+    this.hint,
+    this.textEditingController,
+    this.keyboardType,
+    this.errorText,
+    this.obscureText,
+    this.textCapitalization,
+    this.validator,
+    this.inputFormatters,
+    this.maxLength = 100,
+    this.maxLines = 1,
+    this.hintStyle,
+    this.tap,
+    this.isFocused,
+    this.counterText = "",
+    this.autoValidate = false,
+    this.currentFocusNode,
+    this.nextFocusNode,
+    this.onFieldSubmitted,
+    this.onChanged,
+    this.textInputAction = TextInputAction.done,
+    this.textAlignment = TextAlign.left,
+    this.prefixText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
+    return TextFormField(
+      textCapitalization: keyboardType == TextInputType.emailAddress
+          ? TextCapitalization.none
+          : TextCapitalization.sentences,
+      textInputAction: textInputAction,
+      maxLength: maxLength,
+      controller: textEditingController,
+      onTap: tap,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      style: MyTheme.TextStyles.getMediumText(
+          _width, MyTheme.Colors.black, PageRouteConstants.kRegular),
+      textAlign: textAlignment,
+      focusNode: currentFocusNode,
+      inputFormatters: inputFormatters,
+      onFieldSubmitted: onFieldSubmitted,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        errorStyle: TextStyle(
+            color: isFocused ? MyTheme.Colors.red : MyTheme.Colors.red),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                width: MyTheme.AppDimension.px1,
+                color: isFocused
+                    ? MyTheme.Colors.black
+                    : MyTheme.Colors.black.withOpacity(.50)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(MyTheme.AppDimension.px22),
+            )),
+        focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                width: MyTheme.AppDimension.px1,
+                color: isFocused
+                    ? MyTheme.Colors.black
+                    : MyTheme.Colors.black.withOpacity(.50)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(MyTheme.AppDimension.px22),
+            )),
+        prefixText: prefixText,
+        prefixStyle: MyTheme.TextStyles.getMediumText(
+            _width, MyTheme.Colors.white, PageRouteConstants.kRegular),
+        counterText: counterText,
+        hintStyle: MyTheme.TextStyles.getSmallText(
+            _width,
+            isFocused
+                ? MyTheme.Colors.white
+                : MyTheme.Colors.white.withOpacity(.50),
+            PageRouteConstants.kRegular),
+        hintText: hint,
+        contentPadding: EdgeInsets.only(
+            left: MyTheme.AppDimension.px16,
+            top: MyTheme.AppDimension.px12,
+            bottom: MyTheme.AppDimension.px12,
+            right: MyTheme.AppDimension.px12),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                width: MyTheme.AppDimension.px1,
+                color: isFocused
+                    ? MyTheme.Colors.black
+                    : MyTheme.Colors.black.withOpacity(.50)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(MyTheme.AppDimension.px22),
+            )),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              width: MyTheme.AppDimension.px1, color: MyTheme.Colors.black),
+          borderRadius: BorderRadius.all(
+            Radius.circular(MyTheme.AppDimension.px22),
+          ),
+        ),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(MyTheme.AppDimension.px22),
+            ),
+            borderSide: BorderSide(
+                color: isFocused
+                    ? MyTheme.Colors.black
+                    : MyTheme.Colors.black.withOpacity(.50),
+                width: MyTheme.AppDimension.px1)),
+      ),
+      validator: validator,
+      //define method here or in place of use
+      autovalidate: autoValidate,
+    );
+  }
+}
+```
 
 
 ## *Reducer*
