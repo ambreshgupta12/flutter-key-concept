@@ -658,7 +658,9 @@ class CustomTextField extends StatelessWidget {
 - But... How is the domain layer completely independent when it gets data from a Repository, which is from the data layer?  Do you see that fancy colorful gradient for the Repository? That signifies that it belongs to both layers at the same time. We can accomplish this with dependency inversion.
 
 <img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/domain-layer-diagram.png?w=141&ssl=1"/>
-Repositories are on the edge between data and domain
+Repositories are on the edge between data and domain.
+
+- That's just a fancy way of saying that we create an abstract Repository class defining a contract of what the Repository must do - this goes into the domain layer. We then depend on the Repository "contract" defined in domain, knowing that the actual implementation of the Repository in the data layer will fullfill this contract.
 
 
 ## *Middleware*
