@@ -56,6 +56,9 @@ We will have only a single page with widgets called LoginScreen with a single Lo
 <img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/presentation-layer-2.png?w=206&ssl=1"/>
 
 #### *Login Bloc*
+
+ These are our “BLoCs” that control input from and output to our widgets.
+
 ```dart
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -231,6 +234,8 @@ class PasswordChangedEvent extends LoginEvent {
 ```
 
 #### *Login Page*
+
+ These are simply the pages of our app.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -495,6 +500,9 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 ```
 #### *Widget*
+
+Any other widgets needed by our pages.
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
