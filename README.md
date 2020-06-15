@@ -230,6 +230,270 @@ class PasswordChangedEvent extends LoginEvent {
 }
 ```
 
+#### *Login Page*
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:login_clean_architecture/core/util/check_connectivity.dart';
+
+import 'package:login_clean_architecture/core/constant/page_route_constants.dart';
+import 'package:login_clean_architecture/core/constant/string_constant.dart';
+import 'package:login_clean_architecture/core/util/helper.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
+import 'package:login_clean_architecture/features/login/presentation/bloc/login.dart';
+import 'package:login_clean_architecture/features/login/presentation/widgets/custom_text_field.dart';
+import 'package:login_clean_architecture/core/resources/styles.dart' as MyTheme;
+import '../../../../injection_container.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
+  LoginBloc loginBloc;
+  final loginUserDetails = UserData();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey progressKey = GlobalKey();
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+
+  _onEmailChanged() {
+    loginUserDetails.email = _emailController.text;
+    if (loginUserDetails.email.isNotEmpty) {
+      loginBloc.add(EmailChangedEvent(
+        email: _emailController.text,
+      ));
+    }
+  }
+
+  _onPasswordChanged() {
+    loginUserDetails.password = _passwordController.text;
+    if (loginUserDetails.password.isNotEmpty) {
+      loginBloc.add(PasswordChangedEvent(
+        password: _passwordController.text,
+      ));
+    }
+  }
+
+  Widget _email(LoginState loginState, Size size) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          StringConstant.email,
+          style: MyTheme.TextStyles.getMediumText(
+              size.width, MyTheme.Colors.black, PageRouteConstants.kBold),
+        ),
+        SizedBox(
+          height: MyTheme.AppDimension.px8,
+        ),
+        CustomTextField(
+          hint: StringConstant.type_email,
+          obscureText: false,
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          errorText: StringConstant.please_enter_email_address,
+          textEditingController: _emailController,
+          currentFocusNode: _emailFocus,
+          isFocused: loginUserDetails.email != null &&
+                  loginUserDetails.email.isNotEmpty
+              ? true
+              : false,
+          validator: (_) {
+            return (loginUserDetails.email == null ||
+                        loginUserDetails.email.isEmpty) ||
+                    loginState.isEmailValid
+                ? null
+                : StringConstant.invalid_user_name;
+          },
+        )
+      ],
+    );
+  }
+
+  Widget _password(LoginState loginState, Size size) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          StringConstant.password,
+          style: MyTheme.TextStyles.getMediumText(
+              size.width, MyTheme.Colors.black, PageRouteConstants.kBold),
+        ),
+        SizedBox(
+          height: MyTheme.AppDimension.px8,
+        ),
+        CustomTextField(
+          hint: StringConstant.password_hint,
+          obscureText: true,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.next,
+          errorText: StringConstant.invalid_password,
+          textEditingController: _passwordController,
+          currentFocusNode: _passwordFocus,
+          isFocused: loginUserDetails.password != null &&
+                  loginUserDetails.password.isNotEmpty
+              ? true
+              : false,
+          validator: (_) {
+            return (loginUserDetails.password == null ||
+                        loginUserDetails.password.isEmpty) ||
+                    loginState.isPasswordValid
+                ? null
+                : StringConstant.invalid_password;
+          },
+        )
+      ],
+    );
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(value),
+      backgroundColor: MyTheme.Colors.black,
+    ));
+  }
+
+  Widget _submitButton(Size size, LoginState state) {
+    return Container(
+      width: size.width,
+      height: kBottomNavigationBarHeight,
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state is SignInState) {
+            if (state.userData != null) {
+              Navigator.pushReplacementNamed(
+                  context, PageRouteConstants.home_screen,
+                  arguments: state.userData);
+            }
+          } else if (state is LoginFailure) {
+            Helper.errorDialog(context, StringConstant.error_message,
+                StringConstant.invalid_user_credentials);
+          }
+        },
+        child: BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            if (state is Loading) {
+              return Helper.progressWidget(progressKey);
+            } else {
+              return RaisedButton(
+                child: Text(
+                  StringConstant.sign_in,
+                  style: MyTheme.TextStyles.getMediumText(size.width,
+                      MyTheme.Colors.white, PageRouteConstants.kSemiBold),
+                ),
+                onPressed: () {
+                  if (!(_emailController.text.length > 0) ||
+                      !state.isEmailValid) {
+                    showInSnackBar(StringConstant.invalid_email);
+                  } else if (!(_passwordController.text.length > 0) ||
+                      !state.isPasswordValid) {
+                    showInSnackBar(StringConstant.invalid_password);
+                  } else {
+                    checkConnectivity().then((internetStatus) {
+                      if (internetStatus) {
+                        if (progressKey.currentWidget == null) {
+                          BlocProvider.of<LoginBloc>(context).add(
+                            SignInEvent(
+                                loginRequest: LoginRequest(
+                                    email: _emailController.text,
+                                    password: _passwordController.text)),
+                          );
+                        }
+                      } else {
+                        Helper.errorDialog(
+                            context,
+                            StringConstant.internet_alert,
+                            StringConstant.please_check_internet_connectivity);
+                      }
+                    });
+                  }
+                },
+                color: Theme.of(context).primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(MyTheme.AppDimension.px28),
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return BlocProvider(
+      create: (_) => sl<LoginBloc>(),
+      child: Scaffold(
+          backgroundColor: MyTheme.Colors.white,
+          key: _scaffoldKey,
+          resizeToAvoidBottomPadding: true,
+          body: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Container(
+              height: size.height,
+              width: size.width,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: kBottomNavigationBarHeight,
+                    ),
+                    Container(
+                      width: MyTheme.AppDimension.px150,
+                      height: MyTheme.AppDimension.px150,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                      ),
+                    ),
+                    Text(StringConstant.sign_in,
+                        style: MyTheme.TextStyles.getLargeText(size.width,
+                            MyTheme.Colors.black, PageRouteConstants.kBold)),
+                    BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) => Container(
+                        width: size.width * 0.85,
+                        child: Column(
+                          children: <Widget>[
+                            _email(state, size),
+                            SizedBox(height: size.height * .03),
+                            _password(state, size),
+                            SizedBox(height: size.height * .03),
+                            _submitButton(size, state)
+                          ],
+                        ),
+                      ),
+                    )
+                  ]),
+            ),
+          )),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _emailController.addListener(_onEmailChanged);
+    _passwordController.addListener(_onPasswordChanged);
+    loginBloc = sl<LoginBloc>();
+    super.initState();
+  }
+}
+```
 
 
 ## *Reducer*
