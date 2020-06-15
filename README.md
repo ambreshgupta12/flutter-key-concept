@@ -55,6 +55,93 @@ We will have only a single page with widgets called LoginScreen with a single Lo
 
 <img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/presentation-layer-2.png?w=206&ssl=1"/>
 
+```dart
+/*Login Bloc */
+import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:login_clean_architecture/core/constant/string_constant.dart';
+import 'package:login_clean_architecture/core/error/failures.dart';
+import 'package:login_clean_architecture/core/util/helper.dart';
+import 'package:login_clean_architecture/core/util/validator.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
+import 'package:login_clean_architecture/features/login/domain/usecases/get_sign_in.dart';
+import 'package:login_clean_architecture/features/login/presentation/bloc/login.dart';
+import 'package:meta/meta.dart';
+
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  final GetSignIn getSignIn;
+  final Validator validators;
+
+  LoginBloc({
+    @required GetSignIn signIn,
+    @required Validator validator,
+  })  : assert(signIn != null),
+        assert(validator != null),
+        getSignIn = signIn,
+        validators = validator;
+
+  @override
+  LoginState get initialState => Empty();
+
+  @override
+  Stream<LoginState> mapEventToState(LoginEvent event) async* {
+    if (event is SignInEvent) {
+      yield Loading();
+      try {
+        final failureOrLogin = await getSignIn(Params(
+            loginRequest: LoginRequest(
+                email: event.loginRequest.email,
+                password: event.loginRequest.password)));
+
+        yield* _eitherLoadedOrErrorState(failureOrLogin);
+      } catch (error) {
+        Helper.printLogValue("LoginFailure");
+        yield LoginFailure(message: error.toString());
+      }
+    }
+    if (event is PasswordChangedEvent) {
+      yield state.copyWith(
+        isPasswordValid: _isPasswordValid(event.password),
+      );
+    }
+    if (event is EmailChangedEvent) {
+      yield state.copyWith(
+        isEmailValid: _isEmailValid(event.email),
+      );
+    }
+  }
+
+  bool _isEmailValid(String email) {
+    return validators.validateEmail(email);
+  }
+
+  bool _isPasswordValid(String password) {
+    return validators.validatePassword(password);
+  }
+
+  Stream<LoginState> _eitherLoadedOrErrorState(
+    Either<Failure, UserData> failureOrLogin,
+  ) async* {
+    yield failureOrLogin.fold(
+      (failure) => LoginFailure(message: _mapFailureToMessage(failure)),
+      (user) => SignInState(userData: user),
+    );
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case ServerFailure:
+        return StringConstant.server_failure_message;
+      case CacheFailure:
+        return StringConstant.cache_failure_message;
+      default:
+        return 'Unexpected error';
+    }
+  }
+}
+```
+
 
 ## *Reducer*
 
