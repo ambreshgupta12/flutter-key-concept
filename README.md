@@ -55,8 +55,8 @@ We will have only a single page with widgets called LoginScreen with a single Lo
 
 <img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/presentation-layer-2.png?w=206&ssl=1"/>
 
+#### *Login Bloc*
 ```dart
-/*Login Bloc */
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_clean_architecture/core/constant/string_constant.dart';
