@@ -26,7 +26,7 @@ An important goal of clean architecture is to provide developers with a way to o
 ## *Architecture*
 
 
-<img src="https://blog.novoda.com/content/images/2018/03/redux-architecture-overview-middleware.png" alt="Redux Architecture" />
+<img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" alt="Clean Architecture" />
 
 ## *Components*
 
