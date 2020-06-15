@@ -47,7 +47,13 @@ It is architecture based on the book and blog by Uncle Bob. It is a combination 
 
 This is the stuff you're used to from "unclean" Flutter architecture. You obviously need widgets to display something on the screen. These widgets then dispatch events to the Bloc and listen for states (or an equivalent if you don't use Bloc for state management).
 
-<img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/presentation-layer-diagram.png?w=287&ssl=1" alt="Clean Architecture" />
+<img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/presentation-layer-diagram.png?w=287&ssl=1"/>
+
+### *Applied to the Login App*
+
+We will have only a single page with widgets called LoginScreen with a single LoginBloc.
+
+<img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/presentation-layer-2.png?w=206&ssl=1"/>
 
 
 ## *Reducer*
