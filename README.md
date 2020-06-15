@@ -34,6 +34,11 @@ An important goal of clean architecture is to provide developers with a way to o
 
 - All of this is, well, a bit abstract (pun intended). Also, while the essence of clean architecture remains the same for every framework, the devil lies in the details. Principles like SOLID and YAGNI sound nice, you may even understand what they mean, but it won't do you any good if you don't know how to start writing clean code.
 
+## *Application Layers*
+
+<img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png?w=556&ssl=1" alt="Clean Architecture" />
+
+
 ## *Components*
 
 Usually, components are UI elements presenting data on the screen and initiating changes of the application’s state by responding to user interactions (for example, when the user presses the login button or types in its login credentials). Components cannot communicate directly with the global store. Instead, they need to encapsulate the information (in our previous example, a new username value) required for the changes and dispatch them using actions.
