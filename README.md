@@ -756,6 +756,9 @@ The data layer works with Models, not Entities.
 
 - The store represents the current global state of your application. It can only be changed by the reducers and when it happens the components which are observing particular values in the store will be automatically notified.
 
+<img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/data-layer.png?w=416&ssl=1"/>
+
+
 ## *Configure store*
 
 We would like to store the user data after a successful login and also we would like to present a loading indicator if an API call is in progress. Also, we’d like to display a friendly message if an error happened. We have to compose the stored objects to match those requirements.
