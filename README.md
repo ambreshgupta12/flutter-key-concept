@@ -803,6 +803,75 @@ class LoginRemoteDatasourceImpl implements LoginRemoteDataSource {
 }
 ```
 
+#### *Models*
+
+These are similar to our models but have additional methods, such as toJson and fromJson that allow us to interact with our data sources.
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/result.dart';
+
+part 'login_response.g.dart';
+
+@JsonSerializable()
+class LoginResponse {
+  String status;
+  int code;
+  String message;
+  Result result;
+
+  LoginResponse({this.status, this.code, this.message, this.result});
+
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
+}
+```
+
+#### *Repositories*
+
+ These are the actual implementations of the repositories in our domain layer. Repositories use different data sources to provide functionality to our use cases.
+ 
+ ```dart
+ import 'package:dartz/dartz.dart';
+import 'package:login_clean_architecture/core/error/failures.dart';
+import 'package:login_clean_architecture/features/login/data/datasources/login_remote_datasource.dart';
+import 'package:login_clean_architecture/features/login/data/mapper/remote_mappers.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
+import 'package:login_clean_architecture/features/login/domain/repositories/login_repository.dart';
+import 'package:login_clean_architecture/core/network/network_info.dart';
+
+import 'package:meta/meta.dart';
+
+class LoginRepositoryImpl implements LoginRepository {
+  final LoginRemoteDataSource remoteDataSource;
+
+  final NetworkInfo networkInfo;
+
+  LoginRepositoryImpl({
+    @required this.remoteDataSource,
+    @required this.networkInfo,
+  });
+
+  @override
+  Future<Either<Failure, UserData>> getLoginAccessToken(
+      LoginRequest loginRequest) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(mapLoginResponseToUserData(
+            await remoteDataSource.getAccessToken(loginRequest)));
+      } catch (e) {
+        return Left(ServerFailure());
+      }
+    }
+    return Left(ServerFailure());
+  }
+}
+```
+
+
 
 
 
