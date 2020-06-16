@@ -662,6 +662,10 @@ Repositories are on the edge between data and domain.
 
 - That's just a fancy way of saying that we create an abstract Repository class defining a contract of what the Repository must do - this goes into the domain layer. We then depend on the Repository "contract" defined in domain, knowing that the actual implementation of the Repository in the data layer will fullfill this contract.
 
+<img src="https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/domain-layer.png?w=366&ssl=1"/>
+
+
+
 
 
 #### *Entities*
