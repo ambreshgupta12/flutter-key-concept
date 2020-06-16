@@ -706,6 +706,38 @@ abstract class LoginRepository {
 }
 ```
 
+#### *Usecases*
+
+Also known as “transaction scripts”, each use case is a collection of actions to achieve a desired user goal.
+
+```dart
+import 'package:dartz/dartz.dart';
+import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
+import 'package:meta/meta.dart';
+import 'package:login_clean_architecture/core/error/failures.dart';
+import 'package:login_clean_architecture/core/usecases/usecase.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/domain/repositories/login_repository.dart';
+
+class GetSignIn implements UseCase<UserData, Params> {
+  final LoginRepository loginRepository;
+
+  GetSignIn(this.loginRepository);
+
+  @override
+  Future<Either<Failure, UserData>> call(params) async {
+    return await loginRepository.getLoginAccessToken(params.loginRequest);
+  }
+}
+
+class Params {
+  LoginRequest loginRequest;
+
+  Params({@required this.loginRequest});
+}
+```
+
+
 
 
 ## *Store*
