@@ -764,6 +764,45 @@ Code that interacts with databases or with the Android/iOS platform.
 
 The RemoteDataSource will perform HTTP GET requests on the Login API. LocalDataSource will simply cache data using the shared_preferences package.
 
+```dart 
+/* LoginRemoteDataSource */
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_response.dart';
+
+abstract class LoginRemoteDataSource {
+  Future<LoginResponse> getAccessToken(LoginRequest loginRequest);
+}
+
+```
+```dart 
+/* LoginRemoteDatasourceImplementation */
+import 'package:dio/dio.dart';
+import 'package:login_clean_architecture/core/error/exceptions.dart';
+import 'package:login_clean_architecture/core/constant/url_constant.dart';
+
+import 'package:login_clean_architecture/features/login/data/datasources/login_remote_datasource.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_response.dart';
+import 'package:meta/meta.dart';
+
+class LoginRemoteDatasourceImpl implements LoginRemoteDataSource {
+  final Dio dio;
+
+  LoginRemoteDatasourceImpl({@required this.dio});
+
+  @override
+  Future<LoginResponse> getAccessToken(LoginRequest loginRequest) async {
+    final response = await dio.post(UrlConstant.BASE_URL + UrlConstant.LOGIN,
+        data: loginRequest.toJson());
+    if (response.statusCode == 200) {
+      return LoginResponse.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
+}
+```
+
 
 
 
