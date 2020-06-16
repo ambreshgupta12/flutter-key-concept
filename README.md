@@ -689,6 +689,25 @@ class UserData {
       this.password});
 }
 ```
+
+#### *Repositories*
+
+These are interfaces only, implemented in the data layer.
+
+```dart
+import 'package:dartz/dartz.dart';
+import 'package:login_clean_architecture/core/error/failures.dart';
+import 'package:login_clean_architecture/features/login/data/models/login/login_request.dart';
+import 'package:login_clean_architecture/features/login/domain/entities/user_data.dart';
+
+abstract class LoginRepository {
+  Future<Either<Failure, UserData>> getLoginAccessToken(
+      LoginRequest loginRequest);
+}
+```
+
+
+
 ## *Store*
 
 The store represents the current global state of your application. It can only be changed by the reducers and when it happens the components which are observing particular values in the store will be automatically notified.
