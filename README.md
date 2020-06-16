@@ -750,9 +750,7 @@ class Params {
 The data layer works with Models, not Entities.
 
 
-
-
-The store represents the current global state of your application. It can only be changed by the reducers and when it happens the components which are observing particular values in the store will be automatically notified.
+- The store represents the current global state of your application. It can only be changed by the reducers and when it happens the components which are observing particular values in the store will be automatically notified.
 
 ## *Configure store*
 
