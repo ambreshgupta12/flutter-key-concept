@@ -758,6 +758,14 @@ The data layer works with Models, not Entities.
 
 <img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/data-layer.png?w=416&ssl=1"/>
 
+#### *Datasources*
+
+Code that interacts with databases or with the Android/iOS platform.
+
+The RemoteDataSource will perform HTTP GET requests on the Login API. LocalDataSource will simply cache data using the shared_preferences package.
+
+
+
 
 ## *Configure store*
 
