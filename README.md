@@ -663,9 +663,32 @@ Repositories are on the edge between data and domain.
 - That's just a fancy way of saying that we create an abstract Repository class defining a contract of what the Repository must do - this goes into the domain layer. We then depend on the Repository "contract" defined in domain, knowing that the actual implementation of the Repository in the data layer will fullfill this contract.
 
 
-## *Middleware*
 
-Middleware adds more layers to your application by intercepting the actions before they reach the reducers and do additional data processing. Middleware provides better code separation and makes the layers easy to replace. For example, if you‘re using a database engine in your application you’ll be able to only swap the DB related parts in the future without touching any other parts of the code. Good examples of popular middleware are loggers, databases, thunks or sagas.
+#### *Entities*
+
+These are our business objects, which have business logic has class methods.
+
+``` dart
+class UserData {
+  String name;
+  int id;
+  String email;
+  String gender;
+  String region;
+
+  String type;
+  String password;
+
+  UserData(
+      {this.name,
+      this.id,
+      this.email,
+      this.gender,
+      this.region,
+      this.type,
+      this.password});
+}
+```
 ## *Store*
 
 The store represents the current global state of your application. It can only be changed by the reducers and when it happens the components which are observing particular values in the store will be automatically notified.
