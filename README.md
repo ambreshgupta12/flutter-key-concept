@@ -889,7 +889,7 @@ class LoginRepositoryImpl implements LoginRepository {
 1. https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/
 2. https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 3. https://medium.com/@juanito.taveras/my-first-large-flutter-app-a-clean-architecture-approach-89be201a884a
-4. https://blog.codemagic.io/flutter-tutorial-pros-and-cons-of-state-management-approaches/
+4. https://dev.to/hurricaneinteractive/clean-architecture-your-approach-5ae6
 
 ## *User login credentials*
 ```json
